@@ -1,0 +1,38 @@
+name: Check Image Digest Drift
+description: Compare current image tag digests against a stored lock file and optionally update the lock file.
+
+inputs:
+  lock-file:
+    description: Path to the JSON lock file containing tracked images and expected digests.
+    required: false
+    default: .github/image-digest-lock.json
+  mode:
+    description: check to fail on drift, accept to rewrite the lock file with current digests.
+    required: false
+    default: check
+  write-missing-digests:
+    description: When true, empty digest entries are populated with the current digest.
+    required: false
+    default: "true"
+
+outputs:
+  checked-count:
+    description: Number of image entries processed.
+    value: ${{ steps.run.outputs.checked-count }}
+  drift-detected:
+    description: True when one or more tracked digests differ from the lock file.
+    value: ${{ steps.run.outputs.drift-detected }}
+  updated-lock-file:
+    description: True when the lock file was rewritten.
+    value: ${{ steps.run.outputs.updated-lock-file }}
+
+runs:
+  using: composite
+  steps:
+    - id: run
+      shell: bash
+      run: |
+        bash "${{ github.action_path }}/check-image-digest-drift.sh" \
+          "${{ inputs.lock-file }}" \
+          "${{ inputs.mode }}" \
+          "${{ inputs.write-missing-digests }}"

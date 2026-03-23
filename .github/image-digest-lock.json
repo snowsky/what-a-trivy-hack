@@ -1,0 +1,9 @@
+{
+  "images": [
+    {
+      "name": "ghcr.io/aquasecurity/trivy",
+      "tag": "0.50.1",
+      "digest": ""
+    }
+  ]
+}
