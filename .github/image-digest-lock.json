@@ -3,7 +3,7 @@
     {
       "name": "ghcr.io/aquasecurity/trivy",
       "tag": "0.50.1",
-      "digest": ""
+      "digest": "sha256:586cf142d41727a184b2982ade6a4d94ada9e243d64fcd52e6dcfba9cce56df6"
     }
   ]
 }
